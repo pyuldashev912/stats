@@ -1,5 +1,5 @@
-module github.com/pyuldashev912/stats
+module github.com/pyuldashev912/stats/v2
 
 go 1.19
 
-require github.com/pyuldashev912/bank v0.0.0-20230110060149-bb302a26540d
+require github.com/pyuldashev912/bank/v2 v2.0.0

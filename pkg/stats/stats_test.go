@@ -67,3 +67,47 @@ func TestCategoriesAvg(t *testing.T) {
 		t.Errorf("Error: got %v, expected %v", got, expect)
 	}
 }
+
+func TestPeriodsDynamic_Simple1(t *testing.T) {
+	first := map[types.Category]types.Money{"auto": 10, "food": 20}
+	second := map[types.Category]types.Money{"auto": 5, "food": 3}
+	expect := map[types.Category]types.Money{"auto": -5, "food": -17}
+
+	result := PeriodsDynamic(first, second)
+	if !reflect.DeepEqual(result, expect) {
+		t.Errorf("Error: got %v, expected %v", result, expect)
+	}
+}
+
+func TestPeriodsDynamic_Simple2(t *testing.T) {
+	first := map[types.Category]types.Money{"auto": 10, "food": 20}
+	second := map[types.Category]types.Money{"auto": 20, "food": 20}
+	expect := map[types.Category]types.Money{"auto": 10, "food": 0}
+
+	result := PeriodsDynamic(first, second)
+	if !reflect.DeepEqual(result, expect) {
+		t.Errorf("Error: got %v, expected %v", result, expect)
+	}
+}
+
+func TestPeriodsDynamic_Tricky1(t *testing.T) {
+	first := map[types.Category]types.Money{"auto": 10, "food": 20}
+	second := map[types.Category]types.Money{"food": 20}
+	expect := map[types.Category]types.Money{"auto": -10, "food": 0}
+
+	result := PeriodsDynamic(first, second)
+	if !reflect.DeepEqual(result, expect) {
+		t.Errorf("Error: got %v, expected %v", result, expect)
+	}
+}
+
+func TestPeriodsDynamic_Tricky2(t *testing.T) {
+	first := map[types.Category]types.Money{"auto": 10, "food": 20}
+	second := map[types.Category]types.Money{"auto": 10, "food": 25, "mobile": 5}
+	expect := map[types.Category]types.Money{"auto": 0, "food": 5, "mobile": 5}
+
+	result := PeriodsDynamic(first, second)
+	if !reflect.DeepEqual(result, expect) {
+		t.Errorf("Error: got %v, expected %v", result, expect)
+	}
+}

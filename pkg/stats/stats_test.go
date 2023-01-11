@@ -1,25 +1,27 @@
 package stats
 
 import (
-	"fmt"
+	"testing"
 
 	"github.com/pyuldashev912/bank/v2/pkg/types"
 )
 
-func ExampleAvg() {
+func TestAvg(t *testing.T) {
 	payments := []types.Payment{
 		{ID: 1, Amount: 12468, Category: "авто"},
 		{ID: 2, Amount: 1500, Category: "аптека"},
 		{ID: 3, Amount: 37414, Category: "супермаркет"},
 		{ID: 4, Amount: 15400, Category: "кафе"},
 	}
-	fmt.Println(Avg(payments))
+	result := Avg(payments)
+	expected := types.Money(16695)
 
-	// Output:
-	// 16695
+	if result != expected {
+		t.Errorf("Invalid answer: expected %d, got %d", expected, result)
+	}
 }
 
-func ExampleTotalInCategory() {
+func TestTotalInCategory(t *testing.T) {
 	payments := []types.Payment{
 		{ID: 1, Amount: 12468, Category: "авто"},
 		{ID: 2, Amount: 1500, Category: "аптека"},
@@ -31,8 +33,10 @@ func ExampleTotalInCategory() {
 		{ID: 8, Amount: 25000, Category: "супермаркет"},
 	}
 
-	fmt.Println(TotalInCategory(payments, "супермаркет"))
+	expected := types.Money(77114)
+	result := TotalInCategory(payments, "супермаркет")
 
-	// Output:
-	// 77114
+	if result != expected {
+		t.Errorf("Invalid answer: expected %d, got %d", expected, result)
+	}
 }

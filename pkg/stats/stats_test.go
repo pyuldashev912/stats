@@ -1,6 +1,7 @@
 package stats
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/pyuldashev912/bank/v2/pkg/types"
@@ -38,5 +39,31 @@ func TestTotalInCategory(t *testing.T) {
 
 	if result != expected {
 		t.Errorf("Invalid answer: expected %d, got %d", expected, result)
+	}
+}
+
+func TestCategoriesAvg(t *testing.T) {
+	payments := []types.Payment{
+		{Amount: 9575, Category: "home"},
+		{Amount: 1200, Category: "taxi"},
+		{Amount: 25400, Category: "sweets"},
+		{Amount: 16980, Category: "home"},
+		{Amount: 9815, Category: "drugstore"},
+		{Amount: 1000, Category: "taxi"},
+		{Amount: 3500, Category: "taxi"},
+		{Amount: 16500, Category: "sweets"},
+		{Amount: 31654, Category: "home"},
+	}
+
+	got := CategoriesAvg(payments)
+	expect := map[types.Category]types.Money{
+		"home":      19403,
+		"taxi":      1900,
+		"sweets":    20950,
+		"drugstore": 9815,
+	}
+
+	if !reflect.DeepEqual(expect, got) {
+		t.Errorf("Error: got %v, expected %v", got, expect)
 	}
 }

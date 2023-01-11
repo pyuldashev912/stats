@@ -5,7 +5,7 @@ name: action
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, v1, v2]
 
 jobs:
 

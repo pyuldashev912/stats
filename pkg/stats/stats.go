@@ -27,3 +27,15 @@ func TotalInCategory(payments []types.Payment, category types.Category) types.Mo
 	}
 	return total
 }
+
+// FilterByCategory возвращает платежи в указанной категории
+func FilterByCategory(payments []types.Payment, category types.Category) []types.Payment {
+	filtered := make([]types.Payment, 0, len(payments))
+	for _, payment := range payments {
+		if payment.Category == category {
+			filtered = append(filtered, payment)
+		}
+	}
+
+	return filtered
+}
